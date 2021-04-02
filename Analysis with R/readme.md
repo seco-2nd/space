@@ -18,4 +18,4 @@ Approach:
 3. ANOVA function can be applied over the variables TOTCHG (independent) & RACE (dependent), using this we can determine the relationship between the treatment of a patient and their race. 
 4. Linear Regression Model can be applied over the variables TOTCHG (independent) & AGE, FEMALE(dependent), using this we can determine the severity of expenditure to allocate resources efficiently.
 5. Linear Regression Model can be applied over the variables LOS (independent) & AGE, FEMALE, RACE (dependent), using this we can predict the length of stay using the 3 dependent variables.
-6. Linear Regression Model can be applied over the variables TOTCHG (independent) & AGE, FEMALE, RACE, LOS, APRDRG (dependent), using this we can analyze all the variables which affect the total expenditure.
+6. Linear Regression Model can be applied over the variables TOTCHG (independent) & AGE, FEMALE, RACE, LOS, APRDRG (dependent), using this we can analyze all the variables which affect the total expenditure. 
