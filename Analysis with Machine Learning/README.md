@@ -12,7 +12,9 @@ Reduce the time a Mercedes-Benz spends on the test bench.
 3.	Apply label encoder.
 4.	Perform dimensionality reduction.
 5.	Predict your test_df values using XGBoost.
+
 Approach:
+
 1.	If the column has only one value or cardinality=1 then we can drop it as it will not be of any use, and other values except 0 will be retained and updated to the same df.
 2.	This can be checked using the isnull() function.
 3.	This can be done while filtering the df to remove futile values and updating the df with usable columns
