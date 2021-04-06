@@ -15,7 +15,9 @@ Analysis to be done:
 7.	Which state has the maximum complaints
 8.	Which state has the highest percentage of unresolved complaints
 9.	Provide the percentage of complaints resolved till date, which were received through the Internet and customer care calls.
+
 Approach:
+
 1.	Dataset can be imported to the environment using pandas data frames.
 2.	Trend chart can be plotted using plot() function of matplotlib based on the Date column.
 3.	Table with frequency of complaint types can be obtained by searching the column Customer Complaint sing regular expressions.
