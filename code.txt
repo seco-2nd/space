@@ -1,0 +1,72 @@
+The data size is huge and the marketing team has asked you to perform the below analysis-
+
+1.Load data and create a Spark data frame
+2.Give marketing success rate (No. of people subscribed / total no. of entries)   
+3.Give marketing failure rate
+4.Give the maximum, mean, and minimum age of the average targeted customer
+5.Check the quality of customers by checking average balance, median balance of customers
+6.Check if age matters in marketing subscription for deposit
+7.Check if marital status mattered for a subscription to deposit
+8.Check if age and marital status together mattered for a subscription to deposit scheme
+9.Do feature engineering for the bank and find the right age effect on the campaign.
+
+
+		1.Load data and create a Spark data frame
+
+import org.apache.spark.sql.SQLContext
+
+val sqlC=new SQLContext(sc)
+
+val df=sqlC.read.format("com.databricks.spark.csv").option("header","true").option("inferSchema","true").load("/user/joisvishweshgmail/Project 1_dataset_bank-full (2).csv")
+
+df.printSchema
+
+df.show
+
+df.registerTempTable("Marketing_Analysis_Table")
+
+sqlC.sql("select * from Marketing_Analysis_Table").show()
+
+		2.Give marketing success rate (No. of people subscribed / total no. of entries)   
+
+val total=df.count()
+
+val success=df.filter("y='yes'").count()
+
+val success_rate=success*100/total.toFloat
+
+		3.Give marketing failure rate
+
+val failure=df.filter("y='no'").count()
+
+val failure_rate=failure*100/total.toFloat
+
+val success_qry=sqlC.sql("select count(1),y from Marketing_Analysis_Table group by y").show
+
+		4.Give the maximum, mean, and minimum age of the average targeted customer
+
+val max_min_mean_qry=sqlC.sql("select max(age),min(age),avg(age) from Marketing_Analysis_Table").show
+
+	5.Check the quality of customers by checking average balance, median balance of customers
+
+val quality=sqlC.sql("select avg(balance),percentile_approx(balance,0.5) from Marketing_Analysis_Table").show()
+
+	6.Check if age matters in marketing subscription for deposit
+
+val age=sqlC.sql("select y,avg(age) from Marketing_Analysis_Table group by y").show()
+
+	7.Check if marital status mattered for a subscription to deposit
+
+val marital=sqlC.sql("select marital,y,count(marital) from Marketing_Analysis_Table group by marital,y order by y").show()
+
+	8.Check if age and marital status together mattered for a subscription to deposit scheme
+
+val age_marital=sqlC.sql("select marital,y,count(marital),avg(age) from Marketing_Analysis_Table group by marital,y order by y").show()
+
+	9.Do feature engineering for the bank and find the right age effect on the campaign.
+
+
+val age_group=sqlC.sql("select 'Output','Age','Count' from Marketing_Analysis_Table where 1=0 union select y,'Teen',Count(y) from Marketing_Analysis_Table where y='yes' and age<20 group by y union select y,'Young',Count(y) from Marketing_Analysis_Table where y='yes' and age>=20 and age<30 group by y union select y,'Middle Aged',Count(y) from Marketing_Analysis_Table where y='yes' and age>=30 and age<45 group by y union select y,'Senior',Count(y) from Marketing_Analysis_Table where y='yes' and age>=45 and age<60 group by y union select y,'Old',Count(y) from Marketing_Analysis_Table where y='yes' and age<=60 group by y").show()
+
+
+
